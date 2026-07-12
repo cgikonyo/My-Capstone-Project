@@ -1,0 +1,10 @@
+{
+  "name": "my-capstone-project",
+  "version": "0.1.0",
+  "description": "Capstone project for the AI-assisted development track",
+  "license": "MIT",
+  "private": true,
+  "engines": {
+    "node": ">=22.0.0"
+  }
+}

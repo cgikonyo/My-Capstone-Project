@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SettingsForm Test Runner</title>
+  <style>
+    body {
+      font-family: monospace;
+      margin: 1rem;
+      background-color: #f5f5f5;
+    }
+    .test-container {
+      background-color: white;
+      padding: 1rem;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    #form-container {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="test-container">
+    <h1>SettingsForm Test Runner</h1>
+    <pre id="test-output"></pre>
+    <div id="form-container"></div>
+  </div>
+
+  <script type="module">
+    import SettingsForm from '../lib/SettingsForm.js';
+    import SettingsFormTests from './SettingsForm.test.js';
+
+    const output = document.getElementById('test-output');
+    const originalLog = console.log;
+    const originalError = console.error;
+    const logs = [];
+
+    // Capture console output
+    console.log = function(...args) {
+      logs.push(args.join(' '));
+      originalLog.apply(console, args);
+    };
+
+    console.error = function(...args) {
+      logs.push('ERROR: ' + args.join(' '));
+      originalError.apply(console, args);
+    };
+
+    // Run tests
+    const suite = new SettingsFormTests();
+    const success = suite.runAll();
+
+    // Display results
+    output.textContent = logs.join('\n');
+
+    if (success) {
+      output.parentElement.style.borderLeft = '4px solid #28a745';
+    } else {
+      output.parentElement.style.borderLeft = '4px solid #dc3545';
+    }
+  </script>
+</body>
+</html>
